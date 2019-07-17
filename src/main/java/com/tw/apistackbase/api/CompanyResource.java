@@ -14,14 +14,15 @@ import java.util.List;
 public class CompanyResource {
     @Autowired
     private CompanyRepository companyRepository;
+
     @GetMapping(produces = {"application/json"})
     public ResponseEntity list() {
         return ResponseEntity.ok().body(companyRepository.findAll());
     }
-    
+
     @PostMapping(produces = {"application/json"})
     public ResponseEntity add(@RequestBody Company company) {
-        companyRepository.save(company);
+        companyRepository.saveAndFlush(company);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
